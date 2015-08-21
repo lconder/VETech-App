@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">VETech</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_secondary">Secondary</string>
+    <string name="title_activity_map_vet">Clínicas VETech</string>
+    <string name="title_activity_eventos">Eventos</string>
+    <string name="title_activity_bio">Bio</string>
+</resources>
