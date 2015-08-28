@@ -158,6 +158,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(v.getTag().equals(EVENTOS))
         {
             Toast.makeText(getApplicationContext(), "Rastreo de Collar ", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(this, nfcReader.class);
+            startActivity(intent);
         }
     }
 
@@ -175,9 +177,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public Fragment getItem(int position)
         {
-            /*MyFragment myFragment=MyFragment.getInstance(position);
-            return myFragment;*/
-
             Fragment fragment =  null;
 
             switch (position) {
@@ -185,10 +184,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     fragment =  Tab1.newInstance("", "");
                     break;
                 case 1:
-                    fragment = Tab1.newInstance("", "");
+                    fragment = Tab2.newInstance("", "");
                     break;
                 case 2:
-                    fragment = Tab1.newInstance("", "");
+                    fragment = Tab3.newInstance("", "");
                     break;
             }
             return fragment;

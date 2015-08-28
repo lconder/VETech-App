@@ -9,9 +9,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -24,11 +26,15 @@ public class Bio extends AppCompatActivity
     TextView Nombre;
     TextView Raza;
     TextView Nacimiento;
-    TextView Sexo;
+    ImageView Sexo;
     TextView Descripcion;
     ImageView Imagen;
     String idPerro;
     String url1;
+    Button adoptado;
+    Button perdido;
+    Boolean adoption;
+    Boolean lost;
     JSONObject jsonObject;
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -36,6 +42,11 @@ public class Bio extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bio);
         Bundle extras = getIntent().getExtras();
+
+        toolbar= (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        String Id = extras.getString("Id_Perro");
 
         Imagen = (ImageView) findViewById(R.id.imagen);
         Picasso.with(this).load(extras.getString("Imagen")).into(Imagen);
@@ -46,14 +57,30 @@ public class Bio extends AppCompatActivity
         Raza = (TextView) findViewById(R.id.raza);
         Raza.setText(extras.getString("Raza"));
         //Nacimiento = (TextView) findViewById(R.id.nacimiento);
-        Sexo = (TextView) findViewById(R.id.sexo);
-        Sexo.setText(extras.getString("Sexo"));
+        Sexo = (ImageView) findViewById(R.id.sexo);
+        if(extras.getBoolean("Sexo"))
+            Picasso.with(this).load(R.mipmap.male).into(Sexo);
+        else
+            Picasso.with(this).load(R.mipmap.female).into(Sexo);
         //Descripcion = (TextView) findViewById(R.id.descripcion);
-        idPerro="12345";
-        url1="192.168.0.20:3000/Api/"+idPerro;
 
-        toolbar= (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        adoptado = (Button) findViewById(R.id.adoptado);
+        perdido = (Button) findViewById(R.id.perdido);
+
+        adoption = extras.getBoolean("Adoptado");
+        lost = extras.getBoolean("Perdido");
+
+        if(extras.getBoolean("Adoptado"))
+            adoptado.setBackgroundResource(R.mipmap.adoptado1);
+        else
+            adoptado.setBackgroundResource(R.mipmap.adoptado0);
+
+        if(extras.getBoolean("Perdido"))
+            perdido.setBackgroundResource(R.mipmap.perdido1);
+        else
+            perdido.setBackgroundResource(R.mipmap.perdido0);
+
+
 
 
         if(Build.VERSION.SDK_INT < 19){
@@ -69,6 +96,26 @@ public class Bio extends AppCompatActivity
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    public void adoptado(View v)
+    {
+        Toast.makeText(this, "Adoptado", Toast.LENGTH_SHORT).show();
+        if(adoption)
+        {
+            adoptado.setBackgroundResource(R.mipmap.adoptado1);
+            adoption =false;
+        }
+        else
+        {
+            adoptado.setBackgroundResource(R.mipmap.adoptado0);
+            adoption = true;
+        }
+
+    }
+
+    public void perdido(View v)
+    {
+        Toast.makeText(this, "Perdido", Toast.LENGTH_SHORT).show();
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -91,5 +138,6 @@ public class Bio extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    
 
 }

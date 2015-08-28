@@ -10,9 +10,13 @@ public class Perros
     String alimentacion;
     String idPerro;
     String descripcion;
+    boolean perdido;
+    boolean adoptado;
 
 
-    public Perros(String nombre, String photo, String raza, String nacimiento, boolean sexo, String alimentacion, String idPerro, String descripcion) {
+
+
+    public Perros(String nombre, String photo, String raza, String nacimiento, boolean sexo, String alimentacion, String idPerro, String descripcion, boolean adoptado, boolean perdido) {
         this.nombre = nombre;
         this.photo = photo;
         this.raza = raza;
@@ -21,6 +25,8 @@ public class Perros
         this.alimentacion = alimentacion;
         this.idPerro = idPerro;
         this.descripcion = descripcion;
+        this.adoptado = adoptado;
+        this.perdido = perdido;
     }
 
     public Perros(String photo, String nombre, String id) {
@@ -84,6 +90,7 @@ public class Perros
             return "Hembra";
     }
 
+
     public String getNombre() {
         return nombre;
     }
@@ -101,4 +108,19 @@ public class Perros
         return photo;
     }
 
+    public boolean isPerdido() {
+        return perdido;
+    }
+
+    public boolean isAdoptado() {
+        return adoptado;
+    }
+
+    public void setPerdido(boolean perdido) {
+        this.perdido = perdido;
+    }
+
+    public void setAdoptado(boolean adoptado) {
+        this.adoptado = adoptado;
+    }
 }

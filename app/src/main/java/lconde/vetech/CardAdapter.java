@@ -51,7 +51,10 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder>{
         viewHolder.nombre=perro.getNombre();
         viewHolder.imagen = perro.getPhoto();
         viewHolder.raza = perro.getRaza();
-        viewHolder.sexo = perro.getSexo();
+        viewHolder.sexo = perro.isSexo();
+        viewHolder.adoptado = perro.isAdoptado();
+        viewHolder.perdido = perro.isPerdido();
+        viewHolder.id_perro = perro.getIdPerro();
     }
 
     @Override
@@ -67,7 +70,10 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder>{
         public String nombre;
         public String imagen;
         public  String raza;
-        public String sexo;
+        public Boolean sexo;
+        public Boolean adoptado;
+        public Boolean perdido;
+        public String id_perro;
 
 
         public ViewHolder(View itemView) {
@@ -85,6 +91,9 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder>{
             intent.putExtra("Imagen",imagen);
             intent.putExtra("Raza",raza);
             intent.putExtra("Sexo",sexo);
+            intent.putExtra("Adoptado",adoptado);
+            intent.putExtra("Perdido",perdido);
+            intent.putExtra("Id_Perro", id_perro);
             //Toast.makeText(v.getContext(),info,Toast.LENGTH_SHORT).show();
             v.getContext().startActivity(intent);
         }

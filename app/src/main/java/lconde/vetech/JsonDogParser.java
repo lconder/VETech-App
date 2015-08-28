@@ -46,6 +46,8 @@ public class JsonDogParser
         String imagen=null;
         String idPerro=null;
         String descripcion=null;
+        boolean adoptado=false;
+        boolean perdido = false;
 
         reader.beginObject();
         System.out.println("LEYENDO:");
@@ -63,28 +65,28 @@ public class JsonDogParser
                     break;
                 case "id_perro":
                     idPerro = reader.nextString();
-                    System.out.println("IdPerro: "+idPerro+"\n");
                     break;
                 case "raza":
                     raza= reader.nextString();
-                    System.out.println("Raza: "+raza+"\n");
                     break;
                 case "alimentacion":
                     alimentacion= reader.nextString();
-                    System.out.println(alimentacion+"\n");
                     break;
 
                 case "descripcion":
                     descripcion= reader.nextString();
-                    System.out.println(descripcion+"\n");
                     break;
                 case "nacimiento":
                     nacimiento= reader.nextString();
-                    System.out.println(nacimiento+"\n");
                     break;
                 case "sexo":
                     sexo = reader.nextBoolean();
-                    System.out.println(sexo+"\n");
+                    break;
+                case "perdido":
+                    perdido = reader.nextBoolean();
+                    break;
+                case "adoptado":
+                    adoptado = reader.nextBoolean();
                     break;
                 default:
                     reader.skipValue();
@@ -92,7 +94,7 @@ public class JsonDogParser
             }
         }
         reader.endObject();
-        return new Perros(nombre, imagen,  raza,  nacimiento,  sexo,  alimentacion,  idPerro,  descripcion);
+        return new Perros(nombre, imagen,  raza,  nacimiento,  sexo,  alimentacion,  idPerro,  descripcion, adoptado, perdido);
     }
 }
 

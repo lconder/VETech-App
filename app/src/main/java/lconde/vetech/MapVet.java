@@ -58,8 +58,8 @@ public class MapVet extends AppCompatActivity {
 
         mlocManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 
-        LocationListener mlocListener = new MyLocationListener();
-        mlocManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 0, 0, mlocListener);
+       // LocationListener mlocListener = new MyLocationListener();
+        //mlocManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 0, 0, mlocListener);
 
         map.addMarker(new MarkerOptions()
                 .position(new LatLng(18.997264, -98.203131))
@@ -97,7 +97,7 @@ public class MapVet extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public class MyLocationListener implements LocationListener
+    /*public class MyLocationListener implements LocationListener
     {
 
         @Override
@@ -128,6 +128,6 @@ public class MapVet extends AppCompatActivity {
         {
 
         }
-    }
+    }*/
 
 }

@@ -7,4 +7,5 @@
     <string name="title_activity_map_vet">Clínicas VETech</string>
     <string name="title_activity_eventos">Eventos</string>
     <string name="title_activity_bio">Bio</string>
+    <string name="title_activity_nfc_reader">Rastreo de Collar</string>
 </resources>

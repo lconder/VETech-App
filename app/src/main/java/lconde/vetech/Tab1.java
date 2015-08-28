@@ -87,7 +87,7 @@ public class Tab1 extends Fragment
             {
                 new JsonTask().
                         execute(
-                                new URL("http://192.168.0.18:3000/Api"));
+                                new URL("http://192.168.0.17:3000/Api"));
 
             }
             else {
