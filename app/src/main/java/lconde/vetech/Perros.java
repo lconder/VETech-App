@@ -1,5 +1,7 @@
 package lconde.vetech;
 
+import java.util.ArrayList;
+
 public class Perros
 {
     String nombre;
@@ -11,12 +13,16 @@ public class Perros
     String idPerro;
     String descripcion;
     boolean perdido;
+    String dueno;
+    String recompensa;
+    ArrayList<Consulta> consultas;
     boolean adoptado;
 
 
 
 
-    public Perros(String nombre, String photo, String raza, String nacimiento, boolean sexo, String alimentacion, String idPerro, String descripcion, boolean adoptado, boolean perdido) {
+    public Perros(String nombre, String photo, String raza, String nacimiento, boolean sexo, String alimentacion, String idPerro, String descripcion, boolean adoptado, boolean perdido,String dueno,String recompensa,ArrayList<Consulta> consultas)
+    {
         this.nombre = nombre;
         this.photo = photo;
         this.raza = raza;
@@ -27,13 +33,12 @@ public class Perros
         this.descripcion = descripcion;
         this.adoptado = adoptado;
         this.perdido = perdido;
+        this.dueno = dueno;
+        this.recompensa=recompensa;
+        this.consultas = consultas;
     }
 
-    public Perros(String photo, String nombre, String id) {
-        this.photo = photo;
-        this.idPerro=id;
-        this.nombre = nombre;
-    }
+    public String getDueno() {return dueno;}
 
     public String getRaza() {
         return raza;
@@ -90,6 +95,9 @@ public class Perros
             return "Hembra";
     }
 
+    public String getRecompensa() {
+        return recompensa;
+    }
 
     public String getNombre() {
         return nombre;
@@ -122,5 +130,9 @@ public class Perros
 
     public void setAdoptado(boolean adoptado) {
         this.adoptado = adoptado;
+    }
+
+    public ArrayList<Consulta> getConsultas() {
+        return consultas;
     }
 }

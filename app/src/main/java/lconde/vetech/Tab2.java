@@ -24,6 +24,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 
@@ -83,7 +84,7 @@ public class Tab2 extends Fragment
             {
                 new JsonTaskP().
                         execute(
-                                new URL("http://192.168.0.17:3000/perdidos"));
+                                new URL(getResources().getString(R.string.servidor)+"perdidos"));
 
             }
             else {
@@ -122,7 +123,7 @@ public class Tab2 extends Fragment
 
             } catch (IOException e) {
                 e.printStackTrace();
-            }finally{
+            } finally{
                 con.disconnect();
             }
 
@@ -140,7 +141,7 @@ public class Tab2 extends Fragment
             if(perdidos != null)
             {
                 Activity context=getActivity();
-                mRecyclerView.setAdapter(new CardAdapter(perdidos, R.layout.card_view, context));
+                mRecyclerView.setAdapter(new CardAdapter(perdidos, R.layout.card_view, context,2));
                 mRecyclerView.setItemAnimator(new DefaultItemAnimator());
                 refreshLayout.setRefreshing(false);
             }else

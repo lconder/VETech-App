@@ -36,6 +36,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -45,6 +46,17 @@ public class nfcReader extends AppCompatActivity
     NfcAdapter nfcAdapter;
     HttpURLConnection con;
     ArrayList<Perros> perros=null;
+    ArrayList<Dueno> dueno=null;
+    String nombrePerro="";
+    String nombreDueno;
+    String raza="";
+    Boolean sexo=true;
+    String telefono;
+    String direccion;
+    String email;
+    String imagen="";
+    String descripcion;
+    String recompensa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,10 +121,10 @@ public class nfcReader extends AppCompatActivity
         if(ndefRecords != null && ndefRecords.length>0){
 
             NdefRecord ndefRecord = ndefRecords[0];
-
             String tagContent = getTextFromNdefRecord(ndefRecord);
-            
             Asincrono(tagContent);
+
+
 
         }else
         {
@@ -175,16 +187,13 @@ public class nfcReader extends AppCompatActivity
 
     public void Asincrono(String id)
     {
-        String url="http://192.168.0.17:3000/Api/"+id;
+        String url=getResources().getString(R.string.servidor)+"Api/"+id;
         try{
             ConnectivityManager connMgr = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-            //Toast.makeText(getActivity(),"networkInfo: "+networkInfo + " connected:  "+ networkInfo.isConnected(), Toast.LENGTH_LONG).show();
             if(networkInfo != null && networkInfo.isConnected())
             {
-                new JsonTask().
-                        execute(
-                                new URL(url));
+                new JsonTask(nfcReader.this).execute(new URL(url));
 
             }
             else {
@@ -198,6 +207,12 @@ public class nfcReader extends AppCompatActivity
     public class JsonTask extends AsyncTask<URL, Void, ArrayList<Perros>>
     {
 
+        Context context;
+
+        JsonTask(Context context)
+        {
+            this.context = context;
+        }
         @Override
         protected ArrayList<Perros> doInBackground(URL... urls)
         {
@@ -223,7 +238,7 @@ public class nfcReader extends AppCompatActivity
 
             } catch (IOException e) {
                 e.printStackTrace();
-            }finally{
+            } finally{
                 con.disconnect();
             }
 
@@ -238,14 +253,107 @@ public class nfcReader extends AppCompatActivity
         @Override
         protected void onPostExecute(ArrayList<Perros> perros)
         {
-            if(perros != null)
+            if (perros != null)
             {
-                for(Perros i:perros) {
-                    System.out.println("Perro id: " + i.getIdPerro());
+                Toast.makeText(getApplicationContext(), "Buscando en Dueños", Toast.LENGTH_SHORT).show();
+                String id = getResources().getString(R.string.servidor)+"Duenos/";
+
+                for (Perros i : perros)
+                {
+                    id += i.getDueno();
+                }
+                try {
+                    new JsonTaskD(context).execute(new URL(id));
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
                 }
             }else
             {
                 System.out.println("Error");
+            }
+
+        }
+
+        public class JsonTaskD extends AsyncTask<URL, Void, ArrayList<Dueno>>
+        {
+             Context context;
+
+            JsonTaskD (Context context)
+            {
+                this.context = context;
+            }
+
+            @Override
+            protected ArrayList<Dueno> doInBackground(URL... urls) {
+
+
+                try {
+                    con = (HttpURLConnection) urls[0].openConnection();
+                    con.setConnectTimeout(15000);
+                    con.setReadTimeout(10000);
+
+                    int statusCode = con.getResponseCode();
+
+                    if (statusCode != 200) {
+                        dueno = new ArrayList<>();
+
+                    } else {
+                        InputStream in = new BufferedInputStream(con.getInputStream());
+                        JsonDuenoParser parser = new JsonDuenoParser();
+                        dueno = parser.leerFlujoJson(in);
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    con.disconnect();
+                }
+
+                try {
+                    Thread.sleep(2500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                return dueno;
+            }
+
+            @Override
+            protected void onPostExecute(ArrayList<Dueno> dueno) {
+                if (dueno != null)
+                {
+                    Toast.makeText(getApplicationContext(), "Buscando en Perros...", Toast.LENGTH_SHORT).show();
+                    for (Dueno i : dueno)
+                    {
+                        telefono=i.getTelefono();
+                        email=i.getEmail();
+                        nombreDueno=i.getNombre();
+                        direccion=i.getDireccion();
+                    }
+                    for (Perros k:perros)
+                       {
+                            nombrePerro=k.getNombre();
+                            imagen=k.getPhoto();
+                            raza=k.getRaza();
+                            sexo=k.isSexo();
+                            descripcion=k.getDescripcion();
+                            recompensa=k.getRecompensa();
+                        }
+                    System.out.println("Array size: "+perros.size());
+                    Intent i = new Intent(context, rastreado.class);
+                    i.putExtra("Nombre", nombrePerro);
+                    i.putExtra("Raza",raza);
+                    i.putExtra("Imagen",imagen);
+                    i.putExtra("Sexo",sexo);
+                    i.putExtra("Descripcion",descripcion);
+                    i.putExtra("Recompensa", recompensa);
+                    i.putExtra("NombreD",nombreDueno);
+                    i.putExtra("Direccion",direccion);
+                    i.putExtra("Email",email);
+                    i.putExtra("Telefono",telefono);
+                    context.startActivity(i);
+                } else {
+                    System.out.println("Error");
+                }
             }
         }
     }

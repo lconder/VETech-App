@@ -82,7 +82,7 @@ public class Tab3 extends Fragment
             {
                 new JsonTaskP().
                         execute(
-                                new URL("http://192.168.0.17:3000/adoptados"));
+                                new URL(getResources().getString(R.string.servidor)+"adoptados"));
 
             }
             else {
@@ -139,7 +139,7 @@ public class Tab3 extends Fragment
             if(perdidos != null)
             {
                 Activity context=getActivity();
-                mRecyclerView.setAdapter(new CardAdapter(perdidos, R.layout.card_view, context));
+                mRecyclerView.setAdapter(new CardAdapter(perdidos, R.layout.card_view, context,3));
                 mRecyclerView.setItemAnimator(new DefaultItemAnimator());
                 refreshLayout.setRefreshing(false);
             }else

@@ -1,11 +1,14 @@
 <resources>
     <string name="app_name">VETech</string>
-
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_secondary">Secondary</string>
     <string name="title_activity_map_vet">Clínicas VETech</string>
     <string name="title_activity_eventos">Eventos</string>
     <string name="title_activity_bio">Bio</string>
     <string name="title_activity_nfc_reader">Rastreo de Collar</string>
+    <string name="title_activity_perdido">Perro Perdido</string>
+    <string name="servidor">http://vetech-lconder.rhcloud.com/</string>
+    <string name="title_activity_rastreado">Rastreo de Perro</string>
+    <string name="title_activity_adoptado">adoptado</string>
+
+    <string name="hello_world">Hello world!</string>
 </resources>

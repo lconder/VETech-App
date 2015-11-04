@@ -117,59 +117,34 @@
 
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="100dp"
+                            android:layout_height="180dp"
                             android:layout_weight="1"
                             android:background="@color/md_indigo_600">
 
-                            <LinearLayout
-                                android:orientation="horizontal"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent">
-
-                                <RelativeLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1">
-
-                                    <Button
-                                        android:layout_width="72dp"
-                                        android:layout_height="72dp"
-                                        android:id="@+id/perdido"
-                                        android:layout_centerVertical="true"
-                                        android:layout_centerHorizontal="true"
-                                        android:maxHeight="72dp"
-                                        android:maxWidth="72dp"
-                                        android:onClick="perdido" />
-                                </RelativeLayout>
-
-                                <RelativeLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1">
-
-                                    <Button
-                                        android:layout_width="72dp"
-                                        android:layout_height="72dp"
-                                        android:id="@+id/adoptado"
-                                        android:layout_centerVertical="true"
-                                        android:layout_centerHorizontal="true"
-                                        android:onClick="adoptado" />
-                                </RelativeLayout>
-                            </LinearLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceLarge"
+                                android:text="Descripcion"
+                                android:id="@+id/descripcion"
+                                android:layout_centerVertical="true"
+                                android:layout_centerHorizontal="true" />
                         </RelativeLayout>
 
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="150dp"
+                            android:layout_height="180dp"
                             android:layout_weight="1"
                             android:background="@color/md_indigo_700">
 
-                            <android.support.v7.widget.RecyclerView
-                                android:id="@+id/my_recycler_view"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:scrollbars="vertical" />
 
+                            <Button
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:id="@+id/adoptar"
+                                android:layout_centerVertical="true"
+                                android:layout_centerHorizontal="true"
+                                android:background="@mipmap/adoptado1" />
                         </RelativeLayout>
                     </LinearLayout>
                 </ScrollView>

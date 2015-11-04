@@ -87,7 +87,7 @@ public class Tab1 extends Fragment
             {
                 new JsonTask().
                         execute(
-                                new URL("http://192.168.0.17:3000/Api"));
+                                new URL(getResources().getString(R.string.servidor)+"Api"));
 
             }
             else {
@@ -146,7 +146,7 @@ public class Tab1 extends Fragment
             if(perros != null)
             {
                 Activity context=getActivity();
-                mRecyclerView.setAdapter(new CardAdapter(perros, R.layout.card_view, context));
+                mRecyclerView.setAdapter(new CardAdapter(perros, R.layout.card_view, context,1));
                 mRecyclerView.setItemAnimator(new DefaultItemAnimator());
                 refreshLayout.setRefreshing(false);
             }else

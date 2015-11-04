@@ -1,6 +1,7 @@
 package lconde.vetech;
 
 import android.util.JsonReader;
+import android.util.JsonToken;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,8 +37,7 @@ public class JsonDogParser
         return perros;
     }
 
-    public Perros leerPerro(JsonReader reader) throws  IOException
-    {
+    public Perros leerPerro(JsonReader reader) throws IOException {
         String nombre=null;
         String raza=null;
         String nacimiento=null;
@@ -45,12 +45,15 @@ public class JsonDogParser
         String alimentacion=null;
         String imagen=null;
         String idPerro=null;
+        String idDueno=null;
         String descripcion=null;
         boolean adoptado=false;
         boolean perdido = false;
+        String recompensa=null;
+        ArrayList<Consulta> consultas = null;
 
         reader.beginObject();
-        System.out.println("LEYENDO:");
+
         while(reader.hasNext())
         {
             String name=reader.nextName();
@@ -66,13 +69,15 @@ public class JsonDogParser
                 case "id_perro":
                     idPerro = reader.nextString();
                     break;
+                case "id_dueno":
+                    idDueno = reader.nextString();
+                    break;
                 case "raza":
                     raza= reader.nextString();
                     break;
                 case "alimentacion":
                     alimentacion= reader.nextString();
                     break;
-
                 case "descripcion":
                     descripcion= reader.nextString();
                     break;
@@ -88,13 +93,77 @@ public class JsonDogParser
                 case "adoptado":
                     adoptado = reader.nextBoolean();
                     break;
+                case "recompensa":
+                        recompensa=reader.nextString();
+                        break;
+                case "consultas":
+                        System.out.println("Array Consultas:");
+                        if(reader.peek() != JsonToken.NULL)
+                        {
+                            consultas=readConsultasArray(reader);
+                        }
+                        break;
                 default:
                     reader.skipValue();
                     break;
             }
         }
         reader.endObject();
-        return new Perros(nombre, imagen,  raza,  nacimiento,  sexo,  alimentacion,  idPerro,  descripcion, adoptado, perdido);
+        return new Perros(nombre, imagen,  raza,  nacimiento,  sexo,  alimentacion,  idPerro,  descripcion, adoptado, perdido,idDueno,recompensa,consultas);
+    }
+
+    public ArrayList<Consulta> readConsultasArray(JsonReader reader) throws IOException
+    {
+        System.out.println("Array Consultas: Read consultas Array");
+        ArrayList<Consulta> temp=new ArrayList<>();
+
+        reader.beginArray();
+        while(reader.hasNext())
+        {
+         temp.add(leerConsulta(reader));
+        }
+        reader.endArray();
+        return temp;
+    }
+
+    public Consulta leerConsulta(JsonReader reader) throws IOException
+    {
+        System.out.println("Array Consultas: leer Consulta");
+        String fecha=null;
+        String sintomas=null;
+        String diagnostico=null;
+        String receta=null;
+
+        reader.beginObject();
+        while(reader.hasNext())
+        {
+            String name = reader.nextName();
+            switch (name)
+            {
+                case "fecha":
+                        fecha=reader.nextString();
+                        System.out.println("Array Consultas: fecha:"+fecha);
+                        break;
+                case "sintomas":
+                        sintomas = reader.nextString();
+                        System.out.println("Array Consultas: sintomas "+sintomas);
+                        break;
+                case "diagnostico":
+                        diagnostico = reader.nextString();
+                        System.out.println("Array Consultas: diagnostico "+diagnostico );
+                        break;
+                case "receta":
+                        receta = reader.nextString();
+                        System.out.println("Array Consultas: receta: "+receta );
+                        break;
+                default:
+                    reader.skipValue();
+                    break;
+            }
+        }
+        reader.endObject();
+
+        return new Consulta(fecha, sintomas, diagnostico,receta);
     }
 }
 

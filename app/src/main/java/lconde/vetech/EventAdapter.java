@@ -25,6 +25,51 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>
         this.itemLayout=itemLayout;
     }
 
+
+
+
+    @Override
+    public EventAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int i)
+    {
+        View itemLayoutView = LayoutInflater.from(parent.getContext()).inflate(itemLayout, parent, false);
+        ViewHolder viewHolder = new ViewHolder(itemLayoutView);
+        return viewHolder;
+    }
+
+    @Override
+    public void onBindViewHolder(EventAdapter.ViewHolder viewHolder, int position)
+    {
+        Evento event= eventos.get(position);
+        viewHolder.name.setText(event.getTitulo());
+        viewHolder.fecha.setText(event.getFecha());
+        viewHolder.lugar.setText(event.getLugar());
+
+        switch (event.getId()){
+            case 1:
+                viewHolder.image.setImageResource(R.drawable.dogchow);
+                break;
+            case 2:
+                viewHolder.image.setImageResource(R.drawable.caninata);
+                break;
+            case 3:
+                viewHolder.image.setImageResource(R.drawable.expos);
+                break;
+            case 4:
+                viewHolder.image.setImageResource(R.drawable.jornada);
+                break;
+            case 5:
+                viewHolder.image.setImageResource(R.drawable.pedigree);
+                break;
+        }
+        viewHolder.itemView.setTag(event);
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return eventos.size();
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder implements AdapterView.OnClickListener
     {
 
@@ -51,50 +96,5 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>
             //view.getContext().startActivity(intent);
         }
 
-    }
-
-
-    @Override
-    public EventAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int i)
-    {
-        View itemLayoutView = LayoutInflater.from(parent.getContext()).inflate(itemLayout, parent, false);
-        ViewHolder viewHolder = new ViewHolder(itemLayoutView);
-        return viewHolder;
-    }
-
-    @Override
-    public void onBindViewHolder(EventAdapter.ViewHolder viewHolder, int position)
-    {
-        Evento event= eventos.get(position);
-        viewHolder.name.setText(event.getTitulo());
-        viewHolder.fecha.setText(event.getFecha());
-        viewHolder.lugar.setText(event.getLugar());
-        //String dr="R.drawable."+event.getImagen();
-       // viewHolder.image.setImageResource(Integer.parseInt(dr));
-
-        switch (event.getId()){
-            case 1:
-                viewHolder.image.setImageResource(R.drawable.dogchow);
-                break;
-            case 2:
-                viewHolder.image.setImageResource(R.drawable.caninata);
-                break;
-            case 3:
-                viewHolder.image.setImageResource(R.drawable.expos);
-                break;
-            case 4:
-                viewHolder.image.setImageResource(R.drawable.jornada);
-                break;
-            case 5:
-                viewHolder.image.setImageResource(R.drawable.pedigree);
-                break;
-        }
-        viewHolder.itemView.setTag(event);
-
-    }
-
-    @Override
-    public int getItemCount() {
-        return eventos.size();
     }
 }

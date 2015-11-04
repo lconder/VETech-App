@@ -17,7 +17,6 @@ import android.text.style.ImageSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -64,7 +63,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-        if(Build.VERSION.SDK_INT < 19){
+        if(Build.VERSION.SDK_INT < 19)
+        {
             FrameLayout statusBar = (FrameLayout) findViewById(R.id.statusBar);
             statusBar.setVisibility(View.GONE);
             /*ViewGroup.LayoutParams layoutParams = statusBar.getLayoutParams();
